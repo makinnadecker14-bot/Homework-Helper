@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Homework Helper</title>
 
   <style>
@@ -13,43 +14,56 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: white;
       min-height: 100vh;
-
-      background-color: #173d24;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(45, 80, 40, .8) 0 10%, transparent 11%),
-        radial-gradient(circle at 80% 30%, rgba(30, 65, 35, .8) 0 12%, transparent 13%),
-        radial-gradient(circle at 40% 80%, rgba(60, 85, 35, .7) 0 14%, transparent 15%),
-        radial-gradient(circle at 90% 85%, rgba(20, 55, 30, .8) 0 10%, transparent 11%);
+      color: white;
+      background:
+        linear-gradient(rgba(10, 55, 25, 0.92), rgba(7, 45, 20, 0.96)),
+        repeating-linear-gradient(
+          45deg,
+          #193b24 0px,
+          #193b24 18px,
+          #294c2b 18px,
+          #294c2b 35px,
+          #102f1b 35px,
+          #102f1b 55px
+        );
     }
 
     header {
+      padding: 22px 30px;
+      background: rgba(5, 35, 17, 0.95);
+      border-bottom: 2px solid #5d8f50;
+      font-size: 28px;
+      font-weight: bold;
       text-align: center;
-      padding: 30px 15px 15px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 38px;
-    }
-
-    header p {
-      margin: 8px 0;
-      opacity: .85;
     }
 
     .container {
-      width: min(850px, 92%);
-      margin: 20px auto 50px;
+      width: min(900px, 92%);
+      margin: 35px auto;
     }
 
     .card {
-      background: rgba(10, 35, 20, .92);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 15px 40px rgba(0,0,0,.35);
+      background: rgba(10, 45, 22, 0.94);
+      border: 2px solid #5d8f50;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .intro h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .intro p {
+      margin: 0;
+      color: #d7ead2;
     }
 
     .subjects {
@@ -60,37 +74,41 @@
     }
 
     .subject {
-      border: 0;
-      padding: 13px 8px;
-      border-radius: 12px;
-      background: #315d3b;
+      border: 1px solid #719f65;
+      background: #244b2b;
       color: white;
-      font-weight: bold;
+      border-radius: 12px;
+      padding: 13px 8px;
       cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
     }
 
     .subject:hover,
     .subject.active {
-      background: #5b8c4a;
+      background: #4d7f42;
     }
 
     textarea {
       width: 100%;
       min-height: 150px;
       resize: vertical;
-      border: 0;
-      outline: none;
-      border-radius: 15px;
+      border: 2px solid #719f65;
+      border-radius: 14px;
       padding: 16px;
-      font-size: 16px;
-      font-family: inherit;
-      background: #f3f5ef;
-      color: #17251a;
+      font-size: 17px;
+      outline: none;
+      background: #f5f8f3;
+      color: #17351e;
+    }
+
+    textarea:focus {
+      border-color: #a7d49b;
     }
 
     .buttons {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       margin-top: 14px;
     }
 
@@ -98,51 +116,58 @@
       font-family: inherit;
     }
 
-    .help-btn {
+    .help {
       flex: 1;
-      border: 0;
-      border-radius: 13px;
+      border: none;
+      border-radius: 12px;
       padding: 15px;
-      background: #78a85a;
+      background: #76a865;
       color: white;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .help-btn:hover {
-      background: #8cbb69;
+    .help:hover {
+      background: #8dbc7b;
     }
 
-    .upload-btn {
-      border: 0;
-      border-radius: 13px;
+    .upload {
+      border: 2px solid #719f65;
+      border-radius: 12px;
       padding: 15px 20px;
-      background: #294d32;
+      background: #244b2b;
       color: white;
-      font-weight: bold;
       cursor: pointer;
+      font-weight: bold;
+    }
+
+    #fileInput {
+      display: none;
     }
 
     .answer {
       margin-top: 22px;
-      background: #f3f5ef;
-      color: #17251a;
-      border-radius: 15px;
+      background: #f5f8f3;
+      color: #17351e;
+      border-radius: 14px;
       padding: 20px;
       min-height: 100px;
       white-space: pre-wrap;
       line-height: 1.6;
+      border: 2px solid #719f65;
     }
 
     .answer-title {
+      font-size: 20px;
       font-weight: bold;
-      color: #315d3b;
       margin-bottom: 10px;
+      color: #24552d;
     }
 
     .loading {
-      opacity: .7;
+      color: #416f45;
+      font-style: italic;
     }
 
     .recent {
@@ -154,22 +179,15 @@
     }
 
     .recent-item {
-      background: rgba(255,255,255,.08);
-      padding: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(180,220,170,0.3);
+      padding: 10px;
       border-radius: 10px;
       margin-top: 8px;
       cursor: pointer;
     }
 
-    .recent-item:hover {
-      background: rgba(255,255,255,.14);
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 30px;
-      }
-
+    @media (max-width: 650px) {
       .subjects {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -177,197 +195,210 @@
       .buttons {
         flex-direction: column;
       }
+
+      header {
+        font-size: 23px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>📚 Homework Helper</h1>
-    <p>Your AI study buddy for school questions 🌲</p>
-  </header>
+<header>📚 Homework Helper</header>
 
-  <main class="container">
+<div class="container">
 
-    <div class="card">
+  <div class="card">
 
-      <div class="subjects">
-        <button class="subject active" onclick="selectSubject(this, 'Math')">➗ Math</button>
-        <button class="subject" onclick="selectSubject(this, 'Science')">🔬 Science</button>
-        <button class="subject" onclick="selectSubject(this, 'English')">📖 English</button>
-        <button class="subject" onclick="selectSubject(this, 'History')">🏛️ History</button>
-      </div>
+    <div class="intro">
+      <h1>🌲 Homework Helper</h1>
+      <p>Ask a question and get help from your AI tutor.</p>
+    </div>
 
-      <textarea
-        id="question"
-        placeholder="Type your homework question here..."
-      ></textarea>
+    <div class="subjects">
+      <button class="subject active" onclick="selectSubject(this, 'Math')">➗ Math</button>
+      <button class="subject" onclick="selectSubject(this, 'Science')">🔬 Science</button>
+      <button class="subject" onclick="selectSubject(this, 'English')">📖 English</button>
+      <button class="subject" onclick="selectSubject(this, 'History')">🏛️ History</button>
+    </div>
 
-      <div class="buttons">
-        <button class="help-btn" onclick="getHelp()">
-          🌲 Get Help
-        </button>
+    <textarea
+      id="question"
+      placeholder="Type your homework question..."
+    ></textarea>
 
-        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-          📎 Upload
-        </button>
+    <div class="buttons">
 
-        <input
-          id="fileInput"
-          type="file"
-          accept="image/*"
-          hidden
-          onchange="handleUpload(event)"
-        >
-      </div>
+      <label class="upload">
+        📷 Upload
+        <input id="fileInput" type="file" accept="image/*">
+      </label>
 
-      <div class="answer" id="answer">
-        <div class="answer-title">💡 Your answer will appear here</div>
-        Ask me anything about your homework!
-      </div>
-
-      <div class="recent">
-        <h2>🕘 Recent Questions</h2>
-        <div id="recentQuestions"></div>
-      </div>
+      <button class="help" onclick="getHelp()">
+        🌲 Get Help
+      </button>
 
     </div>
 
-  </main>
+    <div id="answer" class="answer">
+      <div class="answer-title">💡 Your answer will appear here</div>
+      Ask me a homework question!
+    </div>
 
-  <script>
-    let selectedSubject = "Math";
+    <div class="recent">
+      <h2>📝 Recent Questions</h2>
+      <div id="recentQuestions"></div>
+    </div>
 
-    function selectSubject(button, subject) {
-      document.querySelectorAll(".subject").forEach(btn => {
-        btn.classList.remove("active");
-      });
+  </div>
 
-      button.classList.add("active");
-      selectedSubject = subject;
-    }
+</div>
 
-    async function getHelp() {
-      const questionBox = document.getElementById("question");
-      const answerBox = document.getElementById("answer");
+<script>
 
-      const question = questionBox.value.trim();
+  let selectedSubject = "Math";
 
-      if (!question) {
-        answerBox.innerHTML = `
-          <div class="answer-title">⚠️ Enter a question first</div>
-          Type your homework question above.
-        `;
-        return;
-      }
-
-      answerBox.classList.add("loading");
-      answerBox.innerHTML = "🌲 Thinking...";
-
-      try {
-        const response = await fetch("/.netlify/functions/solve", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            question: question,
-            subject: selectedSubject
-          })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || "Something went wrong.");
-        }
-
-        answerBox.classList.remove("loading");
-
-        answerBox.innerHTML = `
-          <div class="answer-title">💡 Answer</div>
-          ${escapeHtml(data.answer)}
-        `;
-
-        saveQuestion(question);
-
-      } catch (error) {
-        answerBox.classList.remove("loading");
-
-        answerBox.innerHTML = `
-          <div class="answer-title">⚠️ Oops!</div>
-          ${escapeHtml(error.message)}
-        `;
-      }
-    }
-
-    function handleUpload(event) {
-      const file = event.target.files[0];
-
-      if (!file) return;
-
-      document.getElementById("question").value =
-        "I uploaded a homework picture. Please help me with it: " + file.name;
-
-      document.getElementById("answer").innerHTML = `
-        <div class="answer-title">📎 Image selected</div>
-        Now click 🌲 Get Help.
-      `;
-    }
-
-    function saveQuestion(question) {
-      let questions =
-        JSON.parse(localStorage.getItem("homeworkQuestions") || "[]");
-
-      questions.unshift(question);
-
-      questions = questions.slice(0, 5);
-
-      localStorage.setItem(
-        "homeworkQuestions",
-        JSON.stringify(questions)
-      );
-
-      showRecentQuestions();
-    }
-
-    function showRecentQuestions() {
-      const box = document.getElementById("recentQuestions");
-
-      const questions =
-        JSON.parse(localStorage.getItem("homeworkQuestions") || "[]");
-
-      box.innerHTML = "";
-
-      questions.forEach(question => {
-        const item = document.createElement("div");
-
-        item.className = "recent-item";
-        item.textContent = question;
-
-        item.onclick = () => {
-          document.getElementById("question").value = question;
-        };
-
-        box.appendChild(item);
-      });
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement("div");
-      div.textContent = text;
-      return div.innerHTML;
-    }
-
-    document.getElementById("question").addEventListener("keydown", event => {
-      if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-        getHelp();
-      }
+  function selectSubject(button, subject) {
+    document.querySelectorAll(".subject").forEach(function(btn) {
+      btn.classList.remove("active");
     });
 
+    button.classList.add("active");
+    selectedSubject = subject;
+  }
+
+  document.getElementById("fileInput").addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    document.getElementById("question").value =
+      "I uploaded a homework picture called " +
+      file.name +
+      ". Please help me with this homework.";
+
+  });
+
+  async function getHelp() {
+
+    const questionBox = document.getElementById("question");
+    const answerBox = document.getElementById("answer");
+
+    const question = questionBox.value.trim();
+
+    if (!question) {
+      answerBox.innerHTML =
+        '<div class="answer-title">⚠️ Enter a question first</div>' +
+        'Type your homework question above.';
+
+      return;
+    }
+
+    answerBox.classList.add("loading");
+
+    answerBox.innerHTML =
+      '<div class="answer-title">🌲 Thinking...</div>' +
+      'Your AI tutor is working on it.';
+
+    try {
+
+      const response = await fetch("/.netlify/functions/solve", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          question: question,
+          subject: selectedSubject
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || "The AI could not answer right now."
+        );
+      }
+
+      answerBox.classList.remove("loading");
+
+      answerBox.innerHTML =
+        '<div class="answer-title">💡 Answer</div>' +
+        escapeHtml(data.answer);
+
+      saveQuestion(question);
+
+    } catch (error) {
+
+      answerBox.classList.remove("loading");
+
+      answerBox.innerHTML =
+        '<div class="answer-title">⚠️ Oops!</div>' +
+        escapeHtml(error.message);
+
+    }
+  }
+
+  function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text || "";
+
+    return div.innerHTML;
+  }
+
+  function saveQuestion(question) {
+
+    let questions =
+      JSON.parse(localStorage.getItem("homeworkQuestions") || "[]");
+
+    questions.unshift(question);
+
+    questions = questions.slice(0, 5);
+
+    localStorage.setItem(
+      "homeworkQuestions",
+      JSON.stringify(questions)
+    );
+
     showRecentQuestions();
-  </script>
+  }
+
+  function showRecentQuestions() {
+
+    const box = document.getElementById("recentQuestions");
+
+    let questions =
+      JSON.parse(localStorage.getItem("homeworkQuestions") || "[]");
+
+    box.innerHTML = "";
+
+    questions.forEach(function(question) {
+
+      const item = document.createElement("div");
+
+      item.className = "recent-item";
+
+      item.textContent = question;
+
+      item.onclick = function() {
+        document.getElementById("question").value = question;
+      };
+
+      box.appendChild(item);
+
+    });
+  }
+
+  showRecentQuestions();
+
+</script>
 
 </body>
 </html>
