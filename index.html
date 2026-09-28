@@ -266,7 +266,7 @@
       answerBox.innerHTML = "🌲 Thinking...";
 
       try {
-        const response = await fetch("/solve", {
+        const response = await fetch("/.netlify/functions/solve", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
